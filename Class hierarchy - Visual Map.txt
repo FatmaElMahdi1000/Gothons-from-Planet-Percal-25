@@ -1,0 +1,51 @@
+classes --> map --> Methods/Function ---> enter_Scenes 
+                                     ---> Opening_Scenes
+                      (Almost child classes)
+           Scenes---> Death   
+                 ---> Central_Corrider
+                 ---> Laser_Weapon_Armory
+                 ---> Bridge
+                 ---> Escape_Pod
+
+          Engine --> Methods/Function ---> Play 
+
+***********************************************************************************************************************************************
+             ┌────────────────────────────────────────────────────────┐
+             │                        Engine                          │
+             │  - Controls the flow between scenes using play()       │
+             │  - Uses Map to find which scene comes next             │
+             └──────────────┬─────────────────────────────────────────┘
+                            │
+                            │
+        ┌──────────────────▼────────────────────┐
+        │                 Map                   │
+        │  - Stores all scenes in a dictionary  │
+        │  - Handles next_scene() and           │
+        │    opening_scene() methods            │
+        └────┬──────────────────────┬───────────┘
+             │                      │
+     opening_scene()        next_scene(scene_name)
+             │                      │
+             ▼                      ▼
+     ┌──────────────┐       ┌────────────────────┐
+     │   First Scene│◄──────┤ Returns next Scene │
+     └──────────────┘       └────────────────────┘
+
+               ▲
+               │
+               ▼
+        ┌───────────────────────────────────────────┐
+        │                Scene (Base Class)         │
+        │  - Has enter() method (overridden)        │
+        └────┬─────────────┬────────────┬───────────┘
+             │             │            │
+             ▼             ▼            ▼
+   ┌────────────────┐ ┌────────────┐ ┌───────────────┐
+   │  Death         │ │ Central    │ │ Laser Armory  │
+   │ (ends game)    │ │ Corridor   │ │               │
+   └────────────────┘ └────────────┘ └───────────────┘
+             │                             │
+             ▼                             ▼
+       ┌────────────┐             ┌────────────────┐
+       │  Bridge    │ ──────────► │ Escape Pod     │
+       └────────────┘             └────────────────┘
